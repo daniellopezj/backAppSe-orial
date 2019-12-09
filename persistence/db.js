@@ -11,7 +11,7 @@ function valueSend(res, status, message, value) {
 }
 
 exports.getperson = function(req, res) {
-    select(req.body, 'persons', (documentos) => {
+    select({ _id: 0 }, 'persons', (documentos) => {
         if (documentos === undefined || documentos.length == 0) {
             valueSend(res, 400, "error", "")
         } else {
@@ -48,6 +48,7 @@ exports.removePerson = function(req, res) {
 
 /********************** UPDATE *****************************/
 exports.UpdatePerson = function(req, res) {
+    console.log(req.body)
     Update({ "id_person": req.body.id_person }, req.body, 'persons', (documentos) => {
         res.send(documentos);
     });
@@ -63,7 +64,7 @@ function select(query, collection, callback) {
 
 const selectData = async function(query, col, db, callback) {
     const collection = db.collection(col);
-    collection.find(query).toArray(function(err, docs) {
+    collection.find({}).project(query).toArray(function(err, docs) {
         callback(docs)
     });
 }
