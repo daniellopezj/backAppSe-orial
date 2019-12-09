@@ -5,6 +5,7 @@ exports.assignRoutes = function(app) {
 
     //REALIZA LA CONEXION Y LA INSERCION DE DATOS EN MONGO 
     // db.connectDB();
+    // db.connectDB();
 
     //*************SOLICITUDES GET******************
     app.get('/person', db.getperson);
