@@ -11,7 +11,7 @@ function valueSend(res, status, message, value) {
 }
 
 exports.getperson = function(req, res) {
-    select({ _id: 0 }, 'persons', (documentos) => {
+    select({ _id: 0 }, 'Colaboradores', (documentos) => {
         if (documentos === undefined || documentos.length == 0) {
             valueSend(res, 400, "error", "")
         } else {
@@ -33,7 +33,13 @@ exports.getpublicationsName = function(req, res) {
     }
     /********************** POST *****************************/
 exports.postPerson = function(req, res) {
-    insert(req.body, 'persons', (documentos) => {
+    insert(req.body, 'Colaboradores', (documentos) => {
+        res.send(documentos);
+    });
+}
+
+exports.postUser = function(req, res) {
+    insert(req.body, 'Usuarios', (documentos) => {
         res.send(documentos);
     });
 }
@@ -41,7 +47,7 @@ exports.postPerson = function(req, res) {
 /********************** REMOVE *****************************/
 exports.removePerson = function(req, res) {
     var id_person = parseInt(req.params.id_person);
-    remove({ "id_person": id_person }, 'persons', (documentos) => {
+    remove({ "id_person": id_person }, 'Colaboradores', (documentos) => {
         res.send(documentos);
     });
 }
@@ -49,7 +55,7 @@ exports.removePerson = function(req, res) {
 /********************** UPDATE *****************************/
 exports.UpdatePerson = function(req, res) {
     console.log(req.body)
-    Update({ "id_person": req.body.id_person }, req.body, 'persons', (documentos) => {
+    Update({ "id_person": req.body.id_person }, req.body, 'Colaboradores', (documentos) => {
         res.send(documentos);
     });
 }
@@ -70,7 +76,7 @@ const selectData = async function(query, col, db, callback) {
 }
 
 function insert(query, collection, callback) {
-    mongoClient.connect(url, function(err, db) { //here db is the client obj
+    mongoClient.connect(url, { useNewUrlParser: true }, function(err, db) { //here db is the client obj
         if (err) throw err;
         var dbase = db.db("AppSenorial"); //here
         insertData(query, collection, dbase, callback)

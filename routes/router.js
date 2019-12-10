@@ -10,10 +10,11 @@ exports.assignRoutes = function(app) {
     //*************SOLICITUDES GET******************
     app.get('/person', db.getperson);
 
-    app.get('/publications', db.getpublications);
-    app.get('/namePublications', db.getpublicationsName);
+    // app.get('/publications', db.getpublications);
+    // app.get('/namePublications', db.getpublicationsName);
     //*************SOLICITUDES POST******************
     app.post('/person', db.postPerson);
+    app.post('/user', db.postUser);
 
     //*************SOLICITUDES REMOVE******************
     app.delete('/person/:id_person', db.removePerson);
