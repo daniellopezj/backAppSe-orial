@@ -11,7 +11,7 @@ function valueSend(res, status, message, value) {
 }
 
 exports.getperson = function(req, res) {
-    select({ _id: 0 }, 'Colaboradores', (documentos) => {
+    select({}, { _id: 0 }, 'Colaboradores', (documentos) => {
         if (documentos === undefined || documentos.length == 0) {
             valueSend(res, 400, "error", "")
         } else {
@@ -20,20 +20,51 @@ exports.getperson = function(req, res) {
     })
 }
 
-exports.getpublications = function(req, res) {
-    select(req.body, 'publications', (documentos) => {
-        res.send(documentos);
+exports.getServicespending = function(req, res) {
+    select({}, { _id: 0 }, 'Servicios', (documentos) => {
+        if (documentos === undefined || documentos.length == 0) {
+            valueSend(res, 400, "error", "")
+        } else {
+            valueSend(res, 200, "OK", documentos)
+        }
     })
 }
 
-exports.getpublicationsName = function(req, res) {
-        select("{},{ public_title:1}", 'publications', (documentos) => {
-            res.send(documentos);
+exports.getServicesmade = function(req, res) {
+    select({}, { _id: 0 }, 'Servicios', (documentos) => {
+        if (documentos === undefined || documentos.length == 0) {
+            valueSend(res, 400, "error", "")
+        } else {
+            valueSend(res, 200, "OK", documentos)
+        }
+    })
+}
+
+exports.getTypeServices = function(req, res) {
+        select({}, { _id: 0 }, 'TipoServicios', (documentos) => {
+            if (documentos === undefined || documentos.length == 0) {
+                valueSend(res, 400, "error", "")
+            } else {
+                valueSend(res, 200, "OK", documentos)
+            }
         })
     }
+    /*
+    exports.getpublicationsName = function(req, res) {
+            select("{},{ public_title:1}", 'publications', (documentos) => {
+                res.send(documentos);
+            })
+        }*/
     /********************** POST *****************************/
 exports.postPerson = function(req, res) {
     insert(req.body, 'Colaboradores', (documentos) => {
+        res.send(documentos);
+    });
+}
+
+
+exports.postService = function(req, res) {
+    insert(req.body, 'Servicios', (documentos) => {
         res.send(documentos);
     });
 }
@@ -60,17 +91,17 @@ exports.UpdatePerson = function(req, res) {
     });
 }
 
-function select(query, collection, callback) {
+function select(find, query, collection, callback) {
     mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
         if (err) throw err;
         var dbase = db.db("AppSenorial"); //here
-        selectData(query, collection, dbase, callback)
+        selectData(find, query, collection, dbase, callback)
     });
 }
 
-const selectData = async function(query, col, db, callback) {
+const selectData = async function(find, query, col, db, callback) {
     const collection = db.collection(col);
-    collection.find({}).project(query).toArray(function(err, docs) {
+    collection.find(find).project(query).toArray(function(err, docs) {
         callback(docs)
     });
 }

@@ -9,12 +9,14 @@ exports.assignRoutes = function(app) {
 
     //*************SOLICITUDES GET******************
     app.get('/person', db.getperson);
-
-    // app.get('/publications', db.getpublications);
+    app.get('/tipoServicio', db.getTypeServices);
+    app.get('/pendientes', db.getServicespending);
+    app.get('/realizados', db.getServicesmade);
     // app.get('/namePublications', db.getpublicationsName);
     //*************SOLICITUDES POST******************
     app.post('/person', db.postPerson);
     app.post('/user', db.postUser);
+    app.post('/service', db.postService);
 
     //*************SOLICITUDES REMOVE******************
     app.delete('/person/:id_person', db.removePerson);
