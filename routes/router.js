@@ -1,11 +1,11 @@
 var body_parser = require('body-parser');
 var db = require('../persistence/db');
+
 exports.assignRoutes = function(app) {
     app.use(body_parser.urlencoded({ extended: true }));
 
     //REALIZA LA CONEXION Y LA INSERCION DE DATOS EN MONGO 
     // db.connectDB();
-
 
     //*************SOLICITUDES GET******************
     app.get('/person', db.getperson);
@@ -23,5 +23,4 @@ exports.assignRoutes = function(app) {
 
     //*************SOLICITUDES REMOVE******************
     app.put('/person', db.UpdatePerson);
-
 }

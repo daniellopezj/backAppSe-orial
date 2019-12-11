@@ -49,12 +49,6 @@ exports.getTypeServices = function(req, res) {
             }
         })
     }
-    /*
-    exports.getpublicationsName = function(req, res) {
-            select("{},{ public_title:1}", 'publications', (documentos) => {
-                res.send(documentos);
-            })
-        }*/
     /********************** POST *****************************/
 exports.postPerson = function(req, res) {
     insert(req.body, 'Colaboradores', (documentos) => {
