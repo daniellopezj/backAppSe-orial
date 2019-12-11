@@ -1,37 +1,37 @@
 var body_parser = require('body-parser');
-var db = require('../persistence/db');
-const person = require('./Person.js')
-
+const Person = require('./Person.js')
+const TypeService = require('./TypeService.js')
+const CleanService = require('./CleanService.js')
+const User = require('./User.js')
 exports.assignRoutes = function(app, http) {
 
     app.use(body_parser.urlencoded({ extended: true }));
     var io = require('socket.io')(http);
 
-    //*************SOLICITUDES GET******************
-    /* app.get('/tipoServicio', db.getTypeServices);
-    app.get('/pendientes', db.getServicespending);
-    app.get('/realizados', db.getServicesmade);
-    // app.get('/namePublications', db.getpublicationsName);
-    //*************SOLICITUDES POST******************
-   
-    app.post('/user', db.postUser);
-    app.post('/service', db.postService);
-
-    //*************SOLICITUDES REMOVE******************
- 
-
-    //*************SOLICITUDES REMOVE******************
-    app.put('/person', db.UpdatePerson);
-*/
+    /*   
+        app.post('/user', db.postUser);
+        app.post('/service', db.postService);
+    */
     io.on('connection', (socket) => {
         console.log('conectado')
         console.log(socket.id)
 
-        let p = new person(app, io);
-        p.getPerson();
-        p.postPerson();
-        p.putPerson();
-        p.deletePerson();
+        let person = new Person(app, io);
+        person.getPerson();
+        person.postPerson();
+        person.putPerson();
+        person.deletePerson();
+
+        let typeService = new TypeService(app);
+        typeService.getTypeServices();
+
+        let cleanService = new CleanService(app);
+        cleanService.getServicesmade();
+        cleanService.getServicespending();
+        cleanService.postService();
+
+        let user = new User(app);
+        user.postUser();
 
         socket.on('disconnect', function() {
             console.log('user disconnect');

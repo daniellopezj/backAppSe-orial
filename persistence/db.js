@@ -14,69 +14,6 @@ class conecctionMongo {
         }));
     }
 
-    /*
-    exports.getServicespending = function(req, res) {
-        select({}, { _id: 0 }, 'Servicios', (documentos) => {
-            if (documentos === undefined || documentos.length == 0) {
-                valueSend(res, 400, "error", "")
-            } else {
-                valueSend(res, 200, "OK", documentos)
-            }
-        })
-    }
-
-    exports.getServicesmade = function(req, res) {
-        select({}, { _id: 0 }, 'Servicios', (documentos) => {
-            if (documentos === undefined || documentos.length == 0) {
-                valueSend(res, 400, "error", "")
-            } else {
-                valueSend(res, 200, "OK", documentos)
-            }
-        })
-    }
-
-    exports.getTypeServices = function(req, res) {
-            select({}, { _id: 0 }, 'TipoServicios', (documentos) => {
-                if (documentos === undefined || documentos.length == 0) {
-                    valueSend(res, 400, "error", "")
-                } else {
-                    valueSend(res, 200, "OK", documentos)
-                }
-            })
-        }
-        /********************** POST *****************************/
-    /*
-
-
-    exports.postService = function(req, res) {
-        insert(req.body, 'Servicios', (documentos) => {
-            res.send(documentos);
-        });
-    }
-
-    exports.postUser = function(req, res) {
-        insert(req.body, 'Usuarios', (documentos) => {
-            res.send(documentos);
-        });
-    }
-
-    /********************** REMOVE *****************************/
-    /*exports.removePerson = function(req, res) {
-        var id_person = parseInt(req.params.id_person);
-        remove({ "id_person": id_person }, 'Colaboradores', (documentos) => {
-            res.send(documentos);
-        });
-    }
-
-    /********************** UPDATE *****************************/
-    /*exports.UpdatePerson = function(req, res) {
-        console.log(req.body)
-        Update({ "id_person": req.body.id_person }, req.body, 'Colaboradores', (documentos) => {
-            res.send(documentos);
-        });
-    }
-    */
-
     select(find, query, collectionName, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
@@ -89,7 +26,7 @@ class conecctionMongo {
     }
 
     insert(query, col, callback) {
-        mongoClient.connect(url, { useNewUrlParser: true }, function(err, db) { //here db is the client obj
+        mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
             var dbase = db.db("AppSenorial"); //here
             const collection = dbase.collection(col);
