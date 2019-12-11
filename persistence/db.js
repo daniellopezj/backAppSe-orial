@@ -102,40 +102,32 @@ class conecctionMongo {
         });
     }
 
-    remove(query, collection, callback) {
+    remove(query, col, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
             var dbase = db.db("AppSenorial"); //here
-            this.removeData(query, collection, dbase, callback)
+            const collection = dbase.collection(col);
+            try {
+                collection.deleteOne(query);
+                callback({ "status": 200, "message": "eliminado exitoso" });
+            } catch (error) {
+                callback({ "status": 400, "message": "upsss, ocurrio un error" });
+            }
         });
     }
 
-    removeData(query, col, db, callback) {
-        const collection = db.collection(col);
-        try {
-            collection.deleteOne(query);
-            callback({ "status": 200, "message": "eliminado exitoso" });
-        } catch (error) {
-            callback({ "status": 400, "message": "upsss, ocurrio un error" });
-        }
-    }
-
-    Update(condition, set, collection, callback) {
+    Update(condition, set, col, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
             var dbase = db.db("AppSenorial");
-            this.UpdateData(condition, set, collection, dbase, callback)
+            const collection = dbase.collection(col);
+            try {
+                collection.update(condition, set);
+                callback({ "status": 200, "message": "actualizacion exitosa" });
+            } catch (error) {
+                callback({ "status": 400, "message": "upsss, ocurrio un error" });
+            }
         });
-    }
-
-    UpdateData(condition, set, col, db, callback) {
-        const collection = db.collection(col);
-        try {
-            collection.update(condition, set);
-            callback({ "status": 200, "message": "actualizacion exitosa" });
-        } catch (error) {
-            callback({ "status": 400, "message": "upsss, ocurrio un error" });
-        }
     }
 }
 

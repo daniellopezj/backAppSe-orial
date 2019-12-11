@@ -32,7 +32,25 @@ class Person {
         })
     }
 
+    deletePerson() {
+        var db = this.database;
+        this.app.delete('/person/:id_person', function(req, res) {
+            var id_person = parseInt(req.params.id_person);
+            db.remove({ "id_person": id_person }, 'Colaboradores', (documentos) => {
+                res.send(documentos);
+            });
+        });
+    }
 
+    putPerson() {
+        var db = this.database;
+        this.app.put('/person', function(req, res) {
+            console.log(req.body)
+            db.Update({ "id_person": req.body.id_person }, req.body, 'Colaboradores', (documentos) => {
+                res.send(documentos);
+            });
+        })
+    }
 }
 
 module.exports = Person

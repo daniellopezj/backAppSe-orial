@@ -18,7 +18,7 @@ exports.assignRoutes = function(app, http) {
     app.post('/service', db.postService);
 
     //*************SOLICITUDES REMOVE******************
-    app.delete('/person/:id_person', db.removePerson);
+ 
 
     //*************SOLICITUDES REMOVE******************
     app.put('/person', db.UpdatePerson);
@@ -30,6 +30,9 @@ exports.assignRoutes = function(app, http) {
         let p = new person(app, io);
         p.getPerson();
         p.postPerson();
+        p.putPerson();
+        p.deletePerson();
+
         socket.on('disconnect', function() {
             console.log('user disconnect');
         })
@@ -40,7 +43,7 @@ exports.assignRoutes = function(app, http) {
         })
 
         app.get('/', function(req, res) {
-            res.send("hola esto es una prueba")
+            res.send("¿se te perdio algo? :)")
             io.emit('test-event', 'otra prueba');
         })
     })
