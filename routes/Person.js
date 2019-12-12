@@ -10,6 +10,7 @@ class Person {
     getPerson() {
         var db = this.database;
         //var io = this.sock;
+
         this.app.get('/person', function(req, res) {
             db.select({}, { _id: 0 }, 'Colaboradores', (documentos) => {
                 if (documentos === undefined || documentos.length == 0) {

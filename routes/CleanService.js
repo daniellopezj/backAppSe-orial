@@ -1,16 +1,16 @@
 var database = require('../persistence/db');
 class CleanService {
 
-    constructor(app) {
+    constructor(app, ioo) {
         this.app = app;
         this.database = new database();
+        this.sock = ioo;
     }
 
-    getServicespending() {
+    getCountServicespending() {
         var db = this.database;
-        //var io = this.sock;
         this.app.get('/pendientes', function(req, res) {
-            db.select({}, { _id: 0 }, 'Servicios', (documentos) => {
+            db.selectCount({}, { "status": "pendiente" }, 'Servicios', (documentos) => {
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")
                 } else {
@@ -38,9 +38,16 @@ class CleanService {
 
     postService() {
         var db = this.database;
+        var io = this.sock;
         this.app.post('/service', function(req, res) {
-            console.log(req.body);
             db.insert(req.body, 'Servicios', (documentos) => {
+                db.selectCount({}, { "status": "pendiente" }, 'Servicios', (documentos) => {
+                    if (documentos === undefined || documentos.length == 0) {
+                        io.emit('countPending', 0);
+                    } else {
+                        io.emit('countPending', documentos);
+                    }
+                });
                 res.send(documentos);
             });
         })

@@ -3,20 +3,17 @@ const Person = require('./Person.js')
 const TypeService = require('./TypeService.js')
 const CleanService = require('./CleanService.js')
 const User = require('./User.js')
+
 exports.assignRoutes = function(app, http) {
 
     app.use(body_parser.urlencoded({ extended: true }));
     var io = require('socket.io')(http);
 
-    /*   
-        app.post('/user', db.postUser);
-        app.post('/service', db.postService);
-    */
     io.on('connection', (socket) => {
-        console.log('conectado')
-        console.log(socket.id)
+        console.log('connect user ' + socket.id)
 
         let person = new Person(app, io);
+
         person.getPerson();
         person.postPerson();
         person.putPerson();
@@ -25,9 +22,9 @@ exports.assignRoutes = function(app, http) {
         let typeService = new TypeService(app);
         typeService.getTypeServices();
 
-        let cleanService = new CleanService(app);
+        let cleanService = new CleanService(app, io);
         cleanService.getServicesmade();
-        cleanService.getServicespending();
+        cleanService.getCountServicespending();
         cleanService.postService();
 
         let user = new User(app);

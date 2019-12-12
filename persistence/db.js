@@ -25,6 +25,17 @@ class conecctionMongo {
         });
     }
 
+    selectCount(find, query, collectionName, callback) {
+        mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
+            if (err) throw err;
+            var dbase = db.db("AppSenorial"); //here
+            const collection = dbase.collection(collectionName);
+            collection.find(query).count(function(err, docs) {
+                callback(docs)
+            });
+        });
+    }
+
     insert(query, col, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
