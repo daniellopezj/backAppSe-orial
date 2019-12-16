@@ -10,7 +10,7 @@ class CleanService {
     getCountServicespending() {
         var db = this.database;
         this.app.get('/Countpendientes', function(req, res) {
-            db.selectCount({}, { "status": "pendiente" }, 'Servicios', (documentos) => {
+            db.selectCount({}, { "estado": "pendiente" }, 'Servicios', (documentos) => {
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")
                 } else {
@@ -23,7 +23,7 @@ class CleanService {
     getServicesPending() {
         var db = this.database;
         this.app.get('/pendientes', function(req, res) {
-            db.select({ "status": "pendiente" }, { _id: 0 }, 'Servicios', (documentos) => {
+            db.select({ "estado": "pendiente" }, { _id: 0 }, 'Servicios', (documentos) => {
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")
                 } else {
