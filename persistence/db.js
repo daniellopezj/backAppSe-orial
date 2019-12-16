@@ -14,6 +14,17 @@ class conecctionMongo {
         }));
     }
 
+    searchid(collectionName, callback) {
+        mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
+            if (err) throw err;
+            var dbase = db.db("AppSenorial"); //here
+            const collection = dbase.collection(collectionName);
+            collection.find().limit(1).sort({ $natural: -1 }).toArray(function(err, docs) {
+                callback(docs[0]);
+            });
+        });
+    }
+
     select(find, query, collectionName, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;

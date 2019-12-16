@@ -23,16 +23,32 @@ class Person {
         })
     }
 
-    postPerson() {
+    async postPerson() {
         var db = this.database;
         this.app.post('/person', function(req, res) {
-            console.log(req.body);
-            db.insert(req.body, 'Colaboradores', (documentos) => {
-                res.send(documentos);
+            db.searchid('Colaboradores', (documentos) => {
+                req.body.id_person = documentos.id_person + 1;
+                db.insert(req.body, 'Colaboradores', (documentos) => {
+                    res.send(documentos);
+                });
             });
         })
     }
 
+    serchid() {
+        var db = this.database;
+        //var io = this.sock;
+        this.app.get('/searchid', function(req, res) {
+            db.searchid('Colaboradores', (documentos) => {
+                if (documentos === undefined || documentos.length == 0) {
+                    db.valueSend(res, 400, "error", "")
+                } else {
+                    db.valueSend(res, 200, "OK", documentos)
+                        //io.emit('test-event', 'otra prueba');
+                }
+            });
+        })
+    }
     deletePerson() {
         var db = this.database;
         this.app.delete('/person/:id_person', function(req, res) {

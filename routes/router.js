@@ -18,6 +18,7 @@ exports.assignRoutes = function(app, http) {
         person.postPerson();
         person.putPerson();
         person.deletePerson();
+        person.serchid();
 
         let typeService = new TypeService(app);
         typeService.getTypeServices();
@@ -26,6 +27,7 @@ exports.assignRoutes = function(app, http) {
         cleanService.getServicesmade();
         cleanService.getCountServicespending();
         cleanService.postService();
+        cleanService.getServicesPending();
 
         let user = new User(app);
         user.postUser();
