@@ -33,6 +33,19 @@ class CleanService {
         })
     }
 
+    getServicesAsiggned() {
+        var db = this.database;
+        this.app.get('/asignados', function(req, res) {
+            db.select({ "estado": "asignado" }, { _id: 0 }, 'Servicios', (documentos) => {
+                if (documentos === undefined || documentos.length == 0) {
+                    db.valueSend(res, 400, "error", "")
+                } else {
+                    db.valueSend(res, 200, "OK", documentos)
+                }
+            });
+        })
+    }
+
     getServicesmade() {
         var db = this.database;
         this.app.get('/realizados', function(req, res) {

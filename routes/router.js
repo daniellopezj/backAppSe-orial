@@ -26,8 +26,10 @@ exports.assignRoutes = function(app, http) {
         let cleanService = new CleanService(app, io);
         cleanService.getServicesmade();
         cleanService.getCountServicespending();
-        cleanService.postService();
         cleanService.getServicesPending();
+        cleanService.getServicesAsiggned();
+        cleanService.postService();
+
         cleanService.UpdateService();
 
         let user = new User(app);
