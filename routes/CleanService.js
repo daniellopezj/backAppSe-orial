@@ -74,9 +74,17 @@ class CleanService {
 
     UpdateService() {
         var db = this.database;
+        var io = this.sock;
         this.app.put('/actualizarServicio', function(req, res) {
             console.log(req.body)
             db.Update({ "id_service": req.body.id_service }, req.body, 'Servicios', (documentos) => {
+                db.selectCount({}, { "estado": "pendiente" }, 'Servicios', (documentos) => {
+                    if (documentos === undefined || documentos.length == 0) {
+                        io.emit('countPending', 0);
+                    } else {
+                        io.emit('countPending', documentos);
+                    }
+                });
                 res.send(documentos);
             });
         })
