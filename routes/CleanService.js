@@ -53,15 +53,31 @@ class CleanService {
             db.searchid('Servicios', (documentos) => {
                 req.body.id_service = documentos.id_service + 1;
                 db.insert(req.body, 'Servicios', (documentos) => {
-                    db.selectCount({}, { "status": "pendiente" }, 'Servicios', (documentos) => {
+                    db.selectCount({}, { "estado": "pendiente" }, 'Servicios', (documentos) => {
                         if (documentos === undefined || documentos.length == 0) {
                             io.emit('countPending', 0);
                         } else {
                             io.emit('countPending', documentos);
+                            db.select({ "estado": "pendiente" }, { _id: 0 }, 'Servicios', (documentos) => {
+                                if (documentos !== undefined || documentos.length != 0) {
+                                    io.emit('showInfoPending', documentos);
+                                }
+                            });
                         }
                     });
                     res.send(documentos);
                 });
+            });
+        })
+    }
+
+
+    UpdateService() {
+        var db = this.database;
+        this.app.put('/actualizarServicio', function(req, res) {
+            console.log(req.body)
+            db.Update({ "id_service": req.body.id_service }, req.body, 'Servicios', (documentos) => {
+                res.send(documentos);
             });
         })
     }
