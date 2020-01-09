@@ -7,6 +7,19 @@ class User {
         this.sock = ioo;
     }
 
+    getUsers() {
+        var db = this.database;
+        this.app.get('/usuarios', function(req, res) {
+            db.select({}, { _id: 0 }, 'Usuarios', (documentos) => {
+                if (documentos === undefined || documentos.length == 0) {
+                    db.valueSend(res, 400, "error", "")
+                } else {
+                    db.valueSend(res, 200, "OK", documentos)
+                }
+            });
+        })
+    }
+
     postUser() {
         var db = this.database;
         this.app.post('/user', function(req, res) {
@@ -18,6 +31,8 @@ class User {
             });
         })
     }
+
+
 }
 
 module.exports = User

@@ -12,18 +12,17 @@ exports.assignRoutes = function(app, http) {
     io.on('connection', (socket) => {
         console.log('connect user ' + socket.id)
 
-        let person = new Person(app, io);
-
+        let person = new Person(app, io); //colaboradores en administrador
         person.getPerson();
         person.postPerson();
         person.putPerson();
         person.deletePerson();
         person.serchid();
 
-        let typeService = new TypeService(app);
+        let typeService = new TypeService(app); // tipo
         typeService.getTypeServices();
 
-        let cleanService = new CleanService(app, io);
+        let cleanService = new CleanService(app, io); // uso de administrador
         cleanService.getCountServicespending();
         cleanService.getServicesPending();
         cleanService.getServicesAsiggned();
@@ -31,8 +30,9 @@ exports.assignRoutes = function(app, http) {
         cleanService.getFinishService();
         cleanService.UpdateService();
 
-        let user = new User(app);
-        user.postUser();
+        let user = new User(app); // uso combinado 
+        user.postUser(); // registro de usuario desde app
+        user.getUsers(); // consumo de usuarios desde administrador
 
         socket.on('disconnect', function() {
             console.log('user disconnect');
