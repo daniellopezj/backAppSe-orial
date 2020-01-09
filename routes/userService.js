@@ -7,8 +7,6 @@ class UserService {
         this.sock = ioo;
     }
 
-
-
 }
 
 module.exports = UserService

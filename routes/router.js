@@ -3,6 +3,7 @@ const Person = require('./Person.js')
 const TypeService = require('./TypeService.js')
 const CleanService = require('./CleanService.js')
 const User = require('./User.js')
+const UserService = require('./UserService.js')
 
 exports.assignRoutes = function(app, http) {
 
@@ -35,6 +36,8 @@ exports.assignRoutes = function(app, http) {
         user.getUsers(); // consumo de usuarios desde administrador
 
         let userService = new UserService(app, io); // en esta clase hacer cambios
+
+
 
         socket.on('disconnect', function() {
             console.log('user disconnect');
