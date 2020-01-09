@@ -33,10 +33,10 @@ class CleanService {
         })
     }
 
-    getServicesAsiggned() {
+    getFinishService() {
         var db = this.database;
-        this.app.get('/asignados', function(req, res) {
-            db.select({ "estado": "asignado" }, { _id: 0 }, 'Servicios', (documentos) => {
+        this.app.get('/realizados', function(req, res) {
+            db.select({ $or: [{ "estado": "terminado" }, { "estado": "rechazado" }] }, { _id: 0 }, 'Servicios', (documentos) => {
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")
                 } else {
@@ -46,10 +46,10 @@ class CleanService {
         })
     }
 
-    getServicesmade() {
+    getServicesAsiggned() {
         var db = this.database;
-        this.app.get('/realizados', function(req, res) {
-            db.select({}, { _id: 0 }, 'Servicios', (documentos) => {
+        this.app.get('/asignados', function(req, res) {
+            db.select({ "estado": "asignado" }, { _id: 0 }, 'Servicios', (documentos) => {
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")
                 } else {
@@ -89,7 +89,6 @@ class CleanService {
         var db = this.database;
         var io = this.sock;
         this.app.put('/actualizarServicio', function(req, res) {
-            console.log(req.body)
             db.Update({ "id_service": req.body.id_service }, req.body, 'Servicios', (documentos) => {
                 db.selectCount({}, { "estado": "pendiente" }, 'Servicios', (documentos) => {
                     if (documentos === undefined || documentos.length == 0) {
