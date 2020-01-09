@@ -63,8 +63,11 @@ class CleanService {
         var db = this.database;
         var io = this.sock;
         this.app.post('/service', function(req, res) {
+            console.log(req.body);
             db.searchid('Servicios', (documentos) => {
-                req.body.id_service = documentos.id_service + 1;
+                if (!(documentos === undefined || documentos.length == 0)) {
+                    req.body.id_service = documentos.id_service + 1;
+                }
                 db.insert(req.body, 'Servicios', (documentos) => {
                     db.selectCount({}, { "estado": "pendiente" }, 'Servicios', (documentos) => {
                         if (documentos === undefined || documentos.length == 0) {
