@@ -37,9 +37,7 @@ class User {
         this.app.post('/loginUser', function (req, res) {
             let email = req.body.email;
             let pass = req.body.password;
-            console.log(email + "  -  " + pass);
-            
-            db.select({ $and: [{ correo: email }, { correo: pass }] }, { _id: 0 }, 'Usuarios', (documentos) => {
+            db.select({ correo: email, contrasena: pass }, { _id: 0 }, 'Usuarios', (documentos) => {
                 console.log(documentos);
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")
@@ -49,7 +47,6 @@ class User {
             });
         });
     }
-
 }
 
 module.exports = User
