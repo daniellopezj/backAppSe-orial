@@ -9,17 +9,30 @@ class UserService {
 
     getUserService() {
         var db = this.database;
-        this.app.get('/serviciosUsuario/:id/:estado', function(req, res) {
+        this.app.get('/serviciosUsuario/:id/:estado', function (req, res) {
             var id = parseInt(req.params.id);
-            var estado = req.params.estado
-            db.select({ $and: [{ "estado": estado }, { "id_user": id }] }, { _id: 0 }, 'Servicios', (documentos) => {
-                if (documentos === undefined || documentos.length == 0) {
-                    db.valueSend(res, 400, "error", "")
-                } else {
-                    db.valueSend(res, 200, "OK", documentos)
-                }
-            });
+            var estado = req.params.estado;
+            db.select({ $and: [{ "estado": estado }, { "id_user": id }] },
+                { _id: 0, id_service:1, fecha_servicio: 1, nombreCategoria: 1, direccion: 1, valor: 1, comentario: 1 },
+                'Servicios', (documentos) => {
+                    if (documentos === undefined) {
+                        db.valueSend(res, 400, "error", "")
+                    } else {
+                        db.valueSend(res, 200, "OK", documentos)
+                    }
+                });
         })
+    }
+
+    updateComment() {
+        var db = this.database;
+        this.app.put('/saveCommente', function (req, res) {
+            let id = req.body.id;
+            let comentario = req.body.comentario;
+            db.Update({ "id_service": req.body.id }, {$set: {comentario: comentario}}, 'Servicios', (documentos) => {
+                res.send(documentos);
+            });
+        });
     }
 }
 
