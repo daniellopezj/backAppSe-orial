@@ -34,6 +34,8 @@ exports.assignRoutes = function(app, http) {
         user.postUser(); // registro de usuario desde app
         user.getUsers(); // consumo de usuarios desde administrador
 
+        let userService = new UserService(app, io); // en esta clase hacer cambios
+
         socket.on('disconnect', function() {
             console.log('user disconnect');
         })
