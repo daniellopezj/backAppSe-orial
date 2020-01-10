@@ -39,6 +39,7 @@ exports.assignRoutes = function(app, http) {
         let userService = new UserService(app, io); // en esta clase hacer cambios
         userService.getUserService();
         userService.updateComment();
+        userService.saveDirection();
 
 
         socket.on('disconnect', function() {
