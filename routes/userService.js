@@ -26,7 +26,7 @@ class UserService {
 
     updateComment() {
         var db = this.database;
-        this.app.put('/saveCommente', function (req, res) {
+        this.app.put('/saveComment', function (req, res) {
             let comentario = req.body.comentario;
             db.Update({ "id_service": req.body.id }, { $set: { comentario: comentario } }, 'Servicios', (documentos) => {
                 res.send(documentos);
