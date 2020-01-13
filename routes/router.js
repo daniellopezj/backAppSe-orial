@@ -31,7 +31,7 @@ exports.assignRoutes = function(app, http) {
         cleanService.getFinishService();
         cleanService.UpdateService();
 
-        let user = new User(app); // uso combinado 
+        let user = new User(app, io); // uso combinado 
         user.postUser(); // registro de usuario desde app
         user.getUsers(); // consumo de usuarios desde administrador
         user.loginUser(); // Login del usuario
