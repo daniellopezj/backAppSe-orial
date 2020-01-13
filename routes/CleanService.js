@@ -93,6 +93,7 @@ class CleanService {
         var io = this.sock;
         this.app.put('/actualizarServicio', function(req, res) {
             db.Update({ "id_service": req.body.id_service }, req.body, 'Servicios', (documentos) => {
+                io.emit('finish', 'cambio');
                 db.selectCount({}, { "estado": "pendiente" }, 'Servicios', (documentos) => {
                     if (documentos === undefined || documentos.length == 0) {
                         io.emit('countPending', 0);
