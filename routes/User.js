@@ -51,6 +51,21 @@ class User {
             });
         });
     }
+
+    loginAdmin() {
+        var db = this.database;
+        this.app.post('/loginAdmin', function(req, res) {
+            let user = req.body.user;
+            let password = req.body.password;
+            db.select({ user: user, password: password }, { _id: 0, password: 0 }, 'admin', (documentos) => {
+                if (documentos === undefined || documentos.length == 0) {
+                    db.valueSend(res, 400, "error", "")
+                } else {
+                    db.valueSend(res, 200, "OK", documentos)
+                }
+            });
+        });
+    }
 }
 
 module.exports = User
