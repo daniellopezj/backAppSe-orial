@@ -36,6 +36,7 @@ exports.assignRoutes = function(app, http) {
         user.getUsers(); // consumo de usuarios desde administrador
         user.loginUser(); // Login del usuario
         user.loginAdmin();
+        user.changepassword();
 
         let userService = new UserService(app, io); // en esta clase hacer cambios
         userService.getUserService();

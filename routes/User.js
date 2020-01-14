@@ -66,6 +66,25 @@ class User {
             });
         });
     }
+
+    changepassword() {
+        var db = this.database;
+        var io = this.sock;
+        this.app.put('/actualizarpassword', function(req, res) {
+            let user = req.body.user;
+            let password = req.body.password;
+            let newpassword = req.body.newpassword;
+            db.select({ user: user, password: password }, { _id: 0, password: 0 }, 'admin', (documentos) => {
+                if (documentos === undefined || documentos.length == 0) {
+                    db.valueSend(res, 400, "error", "")
+                } else {
+                    db.Update({ "user": user }, { $set: { password: newpassword } }, 'admin', (documentos) => {
+                        db.valueSend(res, 200, "OK", documentos)
+                    });
+                }
+            });
+        })
+    }
 }
 
 module.exports = User
