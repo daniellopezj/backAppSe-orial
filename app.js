@@ -3,7 +3,7 @@ var app = express();
 var morgan = require('morgan');
 var http = require('http').Server(app);
 
-var routes = require('./routes/router');
+var routes = require('./app/routes/router');
 
 var allowCrossDomain = function(req, res, next) {
     req.header('Access-Control-Allow-Origin', "*");
