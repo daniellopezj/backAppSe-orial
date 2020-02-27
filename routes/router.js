@@ -1,9 +1,9 @@
 var body_parser = require('body-parser');
-const Person = require('./Person.js')
-const TypeService = require('./TypeService.js')
-const CleanService = require('./CleanService.js')
-const User = require('./User.js')
-const UserService = require('./UserService.js')
+const Person = require('./person.js')
+const TypeService = require('./typeservice.js')
+const CleanService = require('./cleanservice.js')
+const User = require('./user.js')
+const UserService = require('./userservice.js')
 
 exports.assignRoutes = function(app, http) {
 
