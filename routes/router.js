@@ -1,10 +1,9 @@
 var body_parser = require('body-parser');
-const Person = require('./person.js')
-const TypeService = require('./typeservice.js')
-const CleanService = require('./cleanservice.js')
-const User = require('./user.js')
 const UserService = require('./userservice.js')
-
+const User = require('./user.js')
+const Person = require('./person.js')
+const TypeService = require('./typeservice')
+const CleanService = require('./cleanservice.js')
 exports.assignRoutes = function(app, http) {
 
     app.use(body_parser.urlencoded({ extended: true }));
