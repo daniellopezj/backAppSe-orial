@@ -74,6 +74,7 @@ class User {
             let user = req.body.user;
             let password = req.body.password;
             let newpassword = req.body.newpassword;
+            console.log(user);
             db.select({ user: user, password: password }, { _id: 0, password: 0 }, 'admin', (documentos) => {
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")
