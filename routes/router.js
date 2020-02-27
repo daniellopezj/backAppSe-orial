@@ -54,7 +54,7 @@ exports.assignRoutes = function(app, http) {
         })
 
         app.get('/', function(req, res) {
-            res.send("¿se te perdio algo? :)")
+            res.send("¿? :)")
             io.emit('test-event', 'otra prueba');
         })
     })
