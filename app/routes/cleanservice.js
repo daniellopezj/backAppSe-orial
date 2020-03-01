@@ -5,6 +5,7 @@ class CleanService {
         this.app = app;
         this.database = new database();
         this.sock = ioo;
+        console.log("ingrese")
     }
 
     getCountServicespending() {
