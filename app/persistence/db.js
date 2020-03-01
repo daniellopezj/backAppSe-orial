@@ -1,5 +1,5 @@
 var mongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://arquitectura:arquitectura@cluster0-lwmhe.mongodb.net/test?retryWrites=true&w=majority";
+var url = "mongodb+srv://arquitectura:arquitectura@cluster0-lwmhe.mongodb.net/appsenorial";
 /********************** GET *****************************/
 class conecctionMongo {
     constructor(app) {
