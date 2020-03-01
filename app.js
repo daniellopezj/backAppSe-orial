@@ -26,6 +26,6 @@ routes.assignRoutes(app, http);
 app.get('/', function(req, res) {
     res.send("¿En que puedo ayudarte? :)")
 })
-http.listen(3000, () => {
+http.listen(process.env.PORT || 3000, () => {
     console.log('started')
 })
