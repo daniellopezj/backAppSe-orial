@@ -17,7 +17,7 @@ class conecctionMongo {
     searchid(collectionName, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
-            var dbase = db.db("AppSenorial"); //here
+            var dbase = db.db("appsenorial"); //here
             const collection = dbase.collection(collectionName);
             collection.find().limit(1).sort({ $natural: -1 }).toArray(function(err, docs) {
                 callback(docs[0]);
@@ -28,7 +28,7 @@ class conecctionMongo {
     select(find, query, collectionName, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
-            var dbase = db.db("AppSenorial"); //here
+            var dbase = db.db("appsenorial"); //here
             const collection = dbase.collection(collectionName);
             collection.find(find).project(query).toArray(function(err, docs) {
                 callback(docs)
@@ -39,7 +39,7 @@ class conecctionMongo {
     selectCount(find, query, collectionName, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
-            var dbase = db.db("AppSenorial"); //here
+            var dbase = db.db("appsenorial"); //here
             const collection = dbase.collection(collectionName);
             collection.find(query).count(function(err, docs) {
                 callback(docs)
@@ -50,7 +50,7 @@ class conecctionMongo {
     insert(query, col, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
-            var dbase = db.db("AppSenorial"); //here
+            var dbase = db.db("appsenorial"); //here
             const collection = dbase.collection(col);
             try {
                 collection.insertOne(query);
@@ -64,7 +64,7 @@ class conecctionMongo {
     remove(query, col, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
-            var dbase = db.db("AppSenorial"); //here
+            var dbase = db.db("appsenorial"); //here
             const collection = dbase.collection(col);
             try {
                 collection.deleteOne(query);
@@ -78,7 +78,7 @@ class conecctionMongo {
     Update(condition, set, col, callback) {
         mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) { //here db is the client obj
             if (err) throw err;
-            var dbase = db.db("AppSenorial");
+            var dbase = db.db("appsenorial");
             const collection = dbase.collection(col);
             try {
                 collection.update(condition, set);
