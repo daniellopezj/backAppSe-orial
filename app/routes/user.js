@@ -38,10 +38,10 @@ class User {
 
     loginUser() {
         var db = this.database;
-        this.app.post('/loginUser', function(req, res) {
-            let email = req.body.email;
-            let pass = req.body.password;
-            db.select({ correo: email, contrasena: pass }, { _id: 0 }, 'Usuarios', (documentos) => {
+        this.app.get('/loginUser/:uid', function(req, res) {
+            var uid = req.params.uid;
+            
+            db.select({ uID:uid }, { _id: 0 }, 'Usuarios', (documentos) => {
                 console.log(documentos);
                 if (documentos === undefined || documentos.length == 0) {
                     db.valueSend(res, 400, "error", "")

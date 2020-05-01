@@ -22,6 +22,7 @@ exports.assignRoutes = function(app, http) {
 
         let typeService = new TypeService(app); // tipo
         typeService.getTypeServices();
+        typeService.getServicesOfType();
 
         let cleanService = new CleanService(app, io); // uso de administrador
         cleanService.getCountServicespending();
@@ -42,6 +43,7 @@ exports.assignRoutes = function(app, http) {
         userService.getUserService();
         userService.updateComment();
         userService.saveDirection();
+        
 
 
         socket.on('disconnect', function() {
