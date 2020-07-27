@@ -93,6 +93,8 @@ class CleanService {
         var db = this.database;
         var io = this.sock;
         this.app.put('/actualizarServicio', function(req, res) {
+            let estadoService = req.body.estado;
+            console.log(estadoService)
             db.Update({ "id_service": req.body.id_service }, req.body, 'Servicios', (documentos) => {
                 io.emit('finish', 'cambio');
                 db.selectCount({}, { "estado": "pendiente" }, 'Servicios', (documentos) => {

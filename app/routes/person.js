@@ -12,10 +12,11 @@ class Person {
         //var io = this.sock;
         this.app.get('/person', function(req, res) {
             db.select({}, { _id: 0 }, 'Colaboradores', (documentos) => {
-                if (documentos === undefined || documentos.length == 0) {
-                    db.valueSend(res, 400, "error", "")
+                if (documentos === undefined || documentos.length === 0) {
+                    db.valueSend(res, 400, "error", [])
                 } else {
                     db.valueSend(res, 200, "OK", documentos)
+                    console.log(documentos)
                         //io.emit('test-event', 'otra prueba');
                 }
             });
@@ -25,7 +26,16 @@ class Person {
     async postPerson() {
         var db = this.database;
         this.app.post('/person', function(req, res) {
-            db.searchid('Colaboradores', (documentos) => {
+            db.searchid('Colaboradores', (documentos, err) => {
+                if (err) {
+                    console.log(err.message)
+                    return;
+                }
+                console.log("entra a la peticion")
+                if (documentos === undefined) {
+                    documentos = {}
+                    documentos.id_person = 0;
+                }
                 req.body.id_person = documentos.id_person + 1;
                 db.insert(req.body, 'Colaboradores', (documentos) => {
                     res.send(documentos);

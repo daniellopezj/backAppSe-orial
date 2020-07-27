@@ -6,7 +6,6 @@ const TypeService = require('../routes/typeservice')
 const CleanService = require('../routes/cleanservice.js')
 
 exports.assignRoutes = function(app, http) {
-
     app.use(body_parser.urlencoded({ extended: true }));
     var io = require('socket.io')(http);
 
@@ -43,7 +42,7 @@ exports.assignRoutes = function(app, http) {
         userService.getUserService();
         userService.updateComment();
         userService.saveDirection();
-        
+
 
 
         socket.on('disconnect', function() {
