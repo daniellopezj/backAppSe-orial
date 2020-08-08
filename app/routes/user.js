@@ -36,6 +36,15 @@ class User {
         })
     }
 
+    putPerson() {
+        var db = this.database;
+        this.app.put('/user', function(req, res) {
+            db.Update({ "id_user": req.body.id }, req.body, 'Usuarios', (documentos) => {
+                res.send(documentos);
+            });
+        })
+    }
+
     loginUser() {
         var db = this.database;
         this.app.get('/loginUser/:uid', function(req, res) {
