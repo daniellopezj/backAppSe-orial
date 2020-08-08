@@ -27,7 +27,7 @@ console.log("************************")
 routes.assignRoutes(app, http);
 
 app.get('/', function(req, res) {
-    res.send("¿En que puedo ayudarte? :)")
+    res.send("¿En que podemos ayudarte ayudarte? :),  contactanos: daniel lopez https://github.com/daniellopezj01")
 })
 http.listen(process.env.PORT || 3000, () => {
     console.log('started')
