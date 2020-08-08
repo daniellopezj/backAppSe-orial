@@ -21,6 +21,9 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 
+console.log("************************")
+console.log("Se han cargado los cambios")
+console.log("************************")
 routes.assignRoutes(app, http);
 
 app.get('/', function(req, res) {
