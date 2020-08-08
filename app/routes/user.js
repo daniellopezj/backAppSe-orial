@@ -36,7 +36,7 @@ class User {
         })
     }
 
-    putPerson() {
+    putUser() {
         var db = this.database;
         this.app.put('/user', function(req, res) {
             db.Update({ "id_user": req.body.id_user }, req.body, 'Usuarios', (documentos) => {
