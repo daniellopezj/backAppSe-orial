@@ -34,6 +34,7 @@ exports.assignRoutes = function(app, http) {
         let user = new User(app, io); // uso combinado 
         user.postUser(); // registro de usuario desde app
         user.getUsers(); // consumo de usuarios desde administrador
+        user.putUser(); // put user
         user.loginUser(); // Login del usuario
         user.loginAdmin();
         user.changepassword();
